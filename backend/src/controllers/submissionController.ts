@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Submission from '../models/Submission';
+import Submission from '../models/submission';
 
 export const createSubmission = async (req: Request, res: Response): Promise<void> => {
   try {

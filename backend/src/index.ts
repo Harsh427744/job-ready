@@ -1,15 +1,16 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 import { connectDB } from './config/db';
 
-// Import routes (we'll create these next)
+// Import routes
 import authRoutes from './routes/auth';
 import questionRoutes from './routes/questions';
 import submissionRoutes from './routes/submissions';
 import interviewRoutes from './routes/interviews';
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const app: Application = express();
 const PORT = process.env.PORT || 5000;

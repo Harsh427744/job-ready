@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface IInterview extends Document {
+export interface Interview extends Document {
   hostId: mongoose.Types.ObjectId;
   participantId?: mongoose.Types.ObjectId;
   questionIds: mongoose.Types.ObjectId[];
@@ -20,4 +20,4 @@ const InterviewSchema: Schema = new Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-export default mongoose.model<IInterview>('Interview', InterviewSchema);
+export default mongoose.model<Interview>('Interview', InterviewSchema);

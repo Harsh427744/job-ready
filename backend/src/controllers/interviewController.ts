@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Interview from '../models/Interview';
+import Interview from '../models/interview';
 
 export const createInterview = async (req: Request, res: Response): Promise<void> => {
   try {
