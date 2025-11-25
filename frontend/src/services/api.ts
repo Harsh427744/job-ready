@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AuthResponse, Question, Submission } from '../types';
+import { AuthResponse, Question, Submission, SubmissionResponse, Stats } from '../types';
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -37,13 +37,13 @@ export const questionsAPI = {
 
 export const submissionsAPI = {
   create: (questionId: string, code: string, language: string) =>
-    api.post<Submission>('/submissions', { questionId, code, language }),
+    api.post<SubmissionResponse>('/submissions', { questionId, code, language }),
   
   getAll: () =>
     api.get<Submission[]>('/submissions'),
   
   getStats: () =>
-    api.get('/submissions/stats'),
+    api.get<Stats>('/submissions/stats'),
 };
 
 export default api;
