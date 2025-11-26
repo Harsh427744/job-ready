@@ -33,6 +33,15 @@ const QuestionsList: React.FC = () => {
     }
   };
 
+  const getXP = (diff: string) => {
+    switch (diff) {
+      case 'Easy': return 10;
+      case 'Medium': return 25;
+      case 'Hard': return 50;
+      default: return 0;
+    }
+  };
+
   if (loading) {
     return <div className="loading">Loading questions...</div>;
   }
@@ -69,9 +78,10 @@ const QuestionsList: React.FC = () => {
             <thead>
               <tr>
                 <th style={{ width: '5%' }}>#</th>
-                <th style={{ width: '40%' }}>Title</th>
+                <th style={{ width: '35%' }}>Title</th>
                 <th style={{ width: '15%' }}>Difficulty</th>
-                <th style={{ width: '30%' }}>Categories</th>
+                <th style={{ width: '10%' }}>XP Reward</th>
+                <th style={{ width: '25%' }}>Categories</th>
                 <th style={{ width: '10%' }}>Action</th>
               </tr>
             </thead>
@@ -87,6 +97,21 @@ const QuestionsList: React.FC = () => {
                   <td>
                     <span className={`badge ${getDifficultyClass(question.difficulty)}`}>
                       {question.difficulty}
+                    </span>
+                  </td>
+                  <td>
+                    <span
+                      style={{
+                        fontSize: '0.875rem',
+                        color: 'var(--warning)',
+                        fontWeight: 700,
+                        padding: '0.375rem 0.75rem',
+                        background: 'rgba(245, 158, 11, 0.1)',
+                        borderRadius: '0.375rem',
+                        border: '1px solid var(--warning)',
+                      }}
+                    >
+                      +{getXP(question.difficulty)} XP
                     </span>
                   </td>
                   <td>

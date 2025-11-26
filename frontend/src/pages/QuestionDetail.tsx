@@ -51,11 +51,18 @@ const QuestionDetail: React.FC = () => {
     setSubmitMessage('');
     
     try {
-      await submissionsAPI.create(id, code, language);
-      setSubmitMessage('success');
+      const response = await submissionsAPI.create(id, code, language);
+      const data = response.data;
+      
+      if (data.xpEarned > 0) {
+        setSubmitMessage(`success-xp-${data.xpEarned}-${data.levelTitle}-${data.newAchievements.length}`);
+      } else {
+        setSubmitMessage('success-already');
+      }
+      
       setTimeout(() => {
         navigate('/dashboard');
-      }, 2000);
+      }, 3000);
     } catch (error) {
       setSubmitMessage('error');
     } finally {
@@ -120,6 +127,19 @@ const QuestionDetail: React.FC = () => {
               }}
             >
               {question.difficulty}
+            </span>
+            <span
+              style={{
+                fontSize: '0.875rem',
+                color: 'var(--warning)',
+                fontWeight: 700,
+                padding: '0.5rem 1rem',
+                background: 'rgba(245, 158, 11, 0.1)',
+                borderRadius: '0.5rem',
+                border: '1px solid var(--warning)',
+              }}
+            >
+              +{question.difficulty === 'Easy' ? 10 : question.difficulty === 'Medium' ? 25 : 50} XP
             </span>
             {question.category.map((cat, idx) => (
               <span key={idx} className="badge badge-category">
@@ -261,18 +281,64 @@ const QuestionDetail: React.FC = () => {
         </div>
 
         {submitMessage && (
-          <div style={{
-            padding: '1rem 1.5rem',
-            background: submitMessage === 'success' 
-              ? 'rgba(16, 185, 129, 0.1)' 
-              : 'rgba(239, 68, 68, 0.1)',
-            borderBottom: `2px solid ${submitMessage === 'success' ? 'var(--success)' : 'var(--danger)'}`,
-            color: submitMessage === 'success' ? 'var(--success)' : 'var(--danger)',
-            fontWeight: 600
-          }}>
-            {submitMessage === 'success' 
-              ? '✅ Solution submitted successfully! Redirecting to dashboard...' 
-              : '❌ Failed to submit solution. Please try again.'}
+          <div
+            style={{
+              padding: '1.5rem',
+              background: submitMessage.startsWith('success')
+                ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
+                : 'rgba(239, 68, 68, 0.1)',
+              color: submitMessage.startsWith('success') ? 'white' : 'var(--danger)',
+              fontWeight: 600,
+              textAlign: 'center',
+            }}
+          >
+            {submitMessage.startsWith('success-xp') ? (
+              <div>
+                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🎉</div>
+                <div style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.5rem' }}>
+                  Solution Accepted!
+                </div>
+                {(() => {
+                  const parts = submitMessage.split('-');
+                  const xp = parts[2];
+                  const levelTitle = parts[3];
+                  const achievements = parseInt(parts[4]);
+                  return (
+                    <>
+                      <div style={{ fontSize: '1rem', marginBottom: '0.25rem' }}>
+                        +{xp} XP Earned! 🌟
+                      </div>
+                      <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>
+                        You are now a {levelTitle}
+                      </div>
+                      {achievements > 0 && (
+                        <div
+                          style={{
+                            marginTop: '0.75rem',
+                            padding: '0.5rem 1rem',
+                            background: 'rgba(255, 255, 255, 0.2)',
+                            borderRadius: '0.5rem',
+                            fontSize: '0.875rem',
+                          }}
+                        >
+                          🏆 {achievements} new achievement{achievements > 1 ? 's' : ''} unlocked!
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
+                <div style={{ fontSize: '0.75rem', marginTop: '0.75rem', opacity: 0.8 }}>
+                  Redirecting to dashboard...
+                </div>
+              </div>
+            ) : submitMessage === 'success-already' ? (
+              <div>
+                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>✅</div>
+                <div>Solution submitted! (Already solved - no XP awarded)</div>
+              </div>
+            ) : (
+              '❌ Failed to submit solution. Please try again.'
+            )}
           </div>
         )}
 
