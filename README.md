@@ -239,13 +239,13 @@ REACT_APP_API_URL=http://localhost:5000/api
 
 ## 🚧 Future Enhancements
 
-- [ ]Real-time code execution with test case validation
-- [ ]WebRTC peer-to-peer mock interviews
-- [ ]AI-powered code review and optimization suggestions
-- [ ]Collaborative whiteboard for system design practice
-- [ ]Leaderboards and global rankings
-- [ ]Mobile-first PWA experience
-- [ ]Company-specific interview question packs
+- [ ] Real-time code execution with test case validation
+- [ ] WebRTC peer-to-peer mock interviews
+- [ ] AI-powered code review and optimization suggestions
+- [ ] Collaborative whiteboard for system design practice
+- [ ] Leaderboards and global rankings
+- [ ] Mobile-first PWA experience
+- [ ] Company-specific interview question packs
 
 ---
 
@@ -264,4 +264,5 @@ REACT_APP_API_URL=http://localhost:5000/api
 
 ---
 *Built for technical interviews • Production-ready full-stack showcase*
+
 
