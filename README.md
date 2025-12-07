@@ -1,4 +1,4 @@
-﻿# 🚀 Job Ready – Gamified Coding Interview Platform
+# 🚀 Job Ready – Gamified Coding Interview Platform
 
 > Full-stack technical interview prep app with Monaco code editor, XP gamification, progress analytics, and smart question filtering (React + Node.js + MongoDB)
 
